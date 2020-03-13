@@ -1,5 +1,6 @@
 import React, { useState, useEffect, forwardRef } from 'react';
-import { Dialog, AppBar, Toolbar, Slide, TextField, Typography, Fab, IconButton } from "@material-ui/core";
+import { Dialog, AppBar, Toolbar, Slide, TextField, Typography, Fab, IconButton, CircularProgress } from "@material-ui/core";
+import { green } from '@material-ui/core/colors';
 import EditIcon from '@material-ui/icons/Edit';
 import CloseIcon from '@material-ui/icons/Close';
 import Save from '@material-ui/icons/Save';
@@ -13,6 +14,7 @@ export default function EditContact({
   editId
 }) {
   const [id, setId] = useState(true);
+  const [loading, setLoading] = useState(false)
   const [state, setState] = useState({
     firstname: '',
     lastname: '',
@@ -49,7 +51,7 @@ export default function EditContact({
           state: res.data[0].state,
           country: res.data[0].country,
           postal_code: res.data[0].postal_code
-        });
+        })
       });
       setId(false);
     }
@@ -59,9 +61,12 @@ export default function EditContact({
     axios(`http://localhost:3008/api/editContact/${editId}`, {
       method: 'put',
       data: state
-    }).then(() => {
+    }, setLoading(true))
+    .then(() => {
+      setTimeout(() => {
       handleComponent();
       handleClose();
+      }, 3000);
     });
   };
 
@@ -184,6 +189,11 @@ export default function EditContact({
                 />
               </div>
               <div style={btn}>
+              {loading && (
+                <CircularProgress size={70} style={{ color: green[500], margin: '50px' }} />
+              )}
+
+              {loading ? null :
                 <Fab
                   color="secondary"
                   variant="extended"
@@ -192,6 +202,7 @@ export default function EditContact({
                 >
                   <Save style={save} /> S a v e
                 </Fab>
+              }
               </div>
             </form>
           ) : null}

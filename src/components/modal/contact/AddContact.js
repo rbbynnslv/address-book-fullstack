@@ -1,5 +1,6 @@
 import React, { useState, forwardRef } from 'react';
-import { Dialog, AppBar, Toolbar, Slide, TextField, Typography, Fab, IconButton } from "@material-ui/core";
+import { Dialog, AppBar, Toolbar, Slide, TextField, Typography, Fab, IconButton, CircularProgress } from "@material-ui/core";
+import { green } from '@material-ui/core/colors';
 import AddIcon from '@material-ui/icons/Add';
 import PersonAdd from '@material-ui/icons/PersonAdd';
 import CloseIcon from '@material-ui/icons/Close';
@@ -14,6 +15,7 @@ export default function AddContact({
   handleComponent
 }) {
   const id = localStorage.getItem('id');
+  const [loading, setLoading] = useState(false)
   const [state, setState] = useState({
     user_id: id,
     firstname: '',
@@ -55,10 +57,13 @@ export default function AddContact({
       axios('http://localhost:3008/api/addContact', {
         method: 'post',
         data: state
-      }).then(() => {
+      }, setLoading(true))
+      .then(() => {
+        setTimeout(() => {
         handleComponent();
         handleClose();
-      });
+        }, 3000);
+      })
     }
   };
 
@@ -182,6 +187,11 @@ export default function AddContact({
               />
             </div>
             <div style={btn}>
+            {loading && (
+                <CircularProgress size={70} style={{ color: green[500], margin: '50px' }} />
+            )}
+
+            {loading ? null :
               <Fab
                 color="secondary"
                 variant="extended"
@@ -190,6 +200,7 @@ export default function AddContact({
               >
                 <AddIcon style={add} /> Add
               </Fab>
+            } 
             </div>
           </form>
         </div>

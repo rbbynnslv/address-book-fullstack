@@ -16,7 +16,6 @@ import axios from 'axios';
 
 export default function AdressBook() {
   const user_id = localStorage.getItem('id');
-
   const [openAdd, setOpenAdd] = useState(false);
   const [openEdit, setOpenEdit] = useState(false);
   const [openGroup, setOpenGroup] = useState(false);
@@ -43,7 +42,7 @@ export default function AdressBook() {
 
   const handleGroup = () => {
     window.location.href = '/groups';
-  }
+  };
 
   useEffect(() => {
     if (component) {
@@ -57,15 +56,9 @@ export default function AdressBook() {
   }, [component, user_id]);
 
   const search = Object.keys(contacts).filter(function(obj) {
-    let firstname =
-      contacts[obj].firstname
-        .toLowerCase()
-        .indexOf(searchValue.toLowerCase()) !== -1;
-    let lastname =
-      contacts[obj].lastname
-        .toLowerCase()
-        .indexOf(searchValue.toLowerCase()) !== -1;
-    var names = (firstname, lastname);
+    let fname = contacts[obj].firstname.toLowerCase().indexOf(searchValue.toLowerCase()) !== -1;
+    let lname = contacts[obj].lastname.toLowerCase().indexOf(searchValue.toLowerCase()) !== -1;
+    var names = (fname, lname);
     return names;
   });
 
@@ -77,15 +70,13 @@ export default function AdressBook() {
         <Fab
           variant="extended"
           className="fab"
-          onClick={() => {setOpenAdd(true)}}
+          onClick={() => {
+            setOpenAdd(true);
+          }}
         >
-            <AddIcon className="icon" /> Add Contact
+          <AddIcon className="icon" /> Add Contact
         </Fab>
-        <Fab
-          variant="extended"
-          className="fab"
-          onClick={handleGroup}
-        >
+        <Fab variant="extended" className="fab" onClick={handleGroup}>
           <Group className="icon" /> View Groups
         </Fab>
 

@@ -36,7 +36,10 @@ export default function HeaderTwo() {
               Address Book
             </Typography>
             {loading && (
-              <CircularProgress size={40} style={{ color: green[500], margin: '10px' }} />
+              <CircularProgress
+                size={40}
+                style={{ color: green[500], margin: '10px' }}
+              />
             )}
 
             {loading ? null : (
