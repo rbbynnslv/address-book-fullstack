@@ -11,7 +11,7 @@
 1. `cd` into the server directory.
 2. Run `npm i` .
 3. Execute `docker-compose up db` to run docker container.
-4. Run ``npm run migrate up``` to run db migrations.
+4. Run ```npm run migrate up``` to run db migrations.
 5. Then run `nodemon index.js`.
 6. If you encounter `Error: connect ECONNREFUSED 127.0.0.1:5432`, follow the steps below:
    Open the SQL Tabs program. You'll see an address bar at the top of the window in that bar type in the following address.
