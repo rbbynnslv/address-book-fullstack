@@ -71,7 +71,11 @@ export const StyledLR = styled.div`
 
   .iconBtn {
     background-color: #f50057;
+    color: #fff;
     margin-top: 30px;
+  }
+  .iconBtn:hover {
+    background-color: #f50057;
     color: #fff;
   }
 `;
